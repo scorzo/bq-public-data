@@ -21,18 +21,17 @@ query_job = client.query(query)
 # Fetch the results
 results = query_job.result()
 
+# Get the slot time and elapsed query time
+# slot_time = query_job.total_slot_ms
+slots_time = query_job.slot_millis
+bytes_processed = query_job.total_bytes_processed
+
+
+# Print the slot time and elapsed query time
+print('Slots time: {} ms'.format(slots_time))
+print('Bytes processed: {}'.format(bytes_processed))
+
+
 # Iterate over the results and print the output
 for row in results:
     print(row)
-
-
-# Get query statistics
-query_stats = query_job.query_statistics
-
-# Get BigQuery slot and elapsed query times
-slot_millis = query_stats.slot_millis
-elapsed_time = query_stats.end_time - query_stats.start_time
-
-# Print the output
-print(f"BigQuery Slot Time: {slot_millis} ms")
-print(f"Elapsed Query Time: {elapsed_time.total_seconds()} seconds")
